@@ -1,0 +1,463 @@
+---
+/*
+ * Shared Pettable ESA-letter UGC landing page.
+ * variant: "emotional"  -> Direction A (emotional + social proof; skeptic-turned-believer reviews)
+ *          "fees"       -> Direction C (outcome / no-fees; "what you stop paying" savings grid)
+ * Everything else (UGC video wall, trust strip, therapists, how-it-works, what's-included, FAQ,
+ * footer, sticky CTA) is shared. Real verified content; no fabricated names/quotes/prices.
+ */
+interface Props { variant: "emotional" | "fees"; }
+const { variant } = Astro.props;
+
+const MNT = "/c/esa-letter";
+const MEDIA = import.meta.env.DEV ? "/media" : `${MNT}/media`;
+const CTA = "https://pettable.com/get-started";
+
+// 8 curated, compressed creator clips. reel3 (MacaBoy3 — legitimacy) is the center/lead.
+// reels 6-8 are mobile-carousel-only ("extra"); desktop shows the 5-card fan.
+const reels = [1, 2, 3, 4, 5, 6, 7, 8];
+const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>`;
+---
+
+<div class="pl-root" style="font-family:'Inter',system-ui,sans-serif;color:#183840;background:#fff;-webkit-font-smoothing:antialiased;">
+
+  <!-- HERO -->
+  <section class="pl-hero" style="position:relative;padding:clamp(34px,6vw,56px) clamp(20px,5vw,44px) 8px;text-align:center;background:radial-gradient(110% 70% at 50% -8%,#FCEAE0 0%,#FFFBF8 58%);overflow:hidden;">
+    <div style="max-width:880px;margin:0 auto;">
+      {variant === "emotional" ? (
+        <>
+          <div style="font-family:'Plus Jakarta Sans';font-size:clamp(11px,2vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:16px;">Real ESA letters · Licensed therapists</div>
+          <h1 style="font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.035em;font-size:clamp(34px,6.2vw,58px);line-height:1.04;margin:0;color:#183840;text-align:center!important;text-wrap:pretty;">Your pet already helps you. <span style="color:#E87860;">Now make it official.</span></h1>
+          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">Join thousands of pet parents getting a legitimate ESA letter from a licensed therapist — and keeping their best friend close, with no pet fees and no breed restrictions.</p>
+        </>
+      ) : (
+        <>
+          <div style="font-family:'Plus Jakarta Sans';font-size:clamp(11px,2vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:16px;">No pet fees · No breed limits</div>
+          <h1 style="font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.035em;font-size:clamp(34px,6.2vw,58px);line-height:1.04;margin:0;color:#183840;text-align:center!important;text-wrap:pretty;">Keep your pet. Skip the fees. <span style="color:#E87860;">The legit way.</span></h1>
+          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">A legitimate ESA letter from a licensed therapist means no pet rent, no pet deposit, and no breed or size limits — recognized under the Fair Housing Act and accepted by your landlord.</p>
+        </>
+      )}
+      <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+        <a href={CTA} class="cta" style="display:inline-flex;align-items:center;gap:10px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:clamp(16px,2.4vw,18px);padding:18px clamp(28px,5vw,42px);border-radius:14px;text-decoration:none;box-shadow:0 12px 30px rgba(232,120,96,.38);">Get My ESA Letter <span style="font-size:19px;">&rarr;</span></a>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;font-family:'Plus Jakarta Sans';font-weight:600;font-size:clamp(12.5px,2vw,14px);color:#7A888B;">
+          <span style="letter-spacing:1px;color:#00B67A;font-size:15px;">★★★★★</span>
+          <span><strong style="color:#183840;">4.7</strong> on Trustpilot</span>
+          <span style="color:#CBD3D4;">·</span>
+          <span>Letters in 24–48 hrs</span>
+          <span style="color:#CBD3D4;">·</span>
+          <span>Money-back guarantee</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- UGC VIDEO WALL -->
+    <div class="pl-ugc" id="plUgc">
+      {reels.map((n) => (
+        <figure class={`pl-reel${n === 3 ? " lead is-active" : ""}${n > 5 ? " extra" : ""}`} data-n={n}>
+          <video src={`${MEDIA}/reel${n}.mp4`} poster={`${MEDIA}/reel${n}.webp`} muted loop playsinline preload={n === 3 ? "metadata" : "none"} aria-label="Clip from a Pettable pet parent"></video>
+          <span class="pl-mute" aria-hidden="true" set:html={muteIcon}></span>
+        </figure>
+      ))}
+    </div>
+    <div style="font-family:'Inter';font-size:11.5px;color:#A9B3B4;margin-top:14px;padding-bottom:36px;">Real clips from Pettable pet parents. Muted — tap any clip to feature it.</div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section style="background:#FBF1EB;border-top:1px solid rgba(24,56,64,.06);border-bottom:1px solid rgba(24,56,64,.06);padding:22px clamp(20px,5vw,44px);">
+    <div class="pl-trust" style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.02em;color:#183840;line-height:1;">4.7</div>
+        <div>
+          <div style="color:#00B67A;font-size:15px;letter-spacing:1px;">★★★★★</div>
+          <div style="font-family:'Inter';font-size:12.5px;color:#7A888B;">on Trustpilot · 5,942 reviews</div>
+        </div>
+      </div>
+      <div class="pl-trustbadges" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+        <div class="pl-badge"><span style="color:#E87860;">✓</span> Licensed therapists in your state</div>
+        <div class="pl-badge"><span style="color:#E87860;">✓</span> Money-back guarantee</div>
+        <div class="pl-badge"><span style="color:#E87860;">✓</span> Fair Housing Act compliant</div>
+        <div class="pl-badge"><span style="color:#E87860;">✓</span> 100% online</div>
+      </div>
+    </div>
+  </section>
+
+  {variant === "emotional" ? (
+    <!-- WRITTEN REVIEWS (real, verified Trustpilot quotes — honest attribution, no fabricated names) -->
+    <section style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">Skeptics, then believers</div>
+        <h2 class="pl-h2" style="margin:0 0 36px;max-width:640px;">Most people arrive unsure. Then this happens.</h2>
+        <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+          <div class="pl-rev">
+            <div style="color:#00B67A;font-size:15px;letter-spacing:1px;margin-bottom:14px;">★★★★★</div>
+            <p style="font-family:'Inter';font-size:15.5px;line-height:1.6;color:#3F4F53;margin:0 0 18px;">"Kya was incredibly thorough and compassionate. My landlord accepted the letter without a single question."</p>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;color:#183840;">Verified Trustpilot review</div>
+          </div>
+          <div class="pl-rev">
+            <div style="color:#00B67A;font-size:15px;letter-spacing:1px;margin-bottom:14px;">★★★★★</div>
+            <p style="font-family:'Inter';font-size:15.5px;line-height:1.6;color:#3F4F53;margin:0 0 18px;">"The letter came on my therapist's private practice letterhead — not some company template. That's what convinced my property manager."</p>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;color:#183840;">Verified Trustpilot review</div>
+          </div>
+          <div class="pl-rev">
+            <div style="color:#00B67A;font-size:15px;letter-spacing:1px;margin-bottom:14px;">★★★★★</div>
+            <p style="font-family:'Inter';font-size:15.5px;line-height:1.6;color:#3F4F53;margin:0 0 18px;">"I was nervous going in, but the therapist made me feel heard and understood. The whole process was easier than I expected."</p>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:14px;color:#183840;">Verified Trustpilot review</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <!-- WHAT YOU STOP PAYING (savings grid) -->
+    <section style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+      <div style="max-width:1180px;margin:0 auto;">
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">What you stop paying</div>
+        <h2 class="pl-h2" style="margin:0 0 12px;max-width:640px;">A valid ESA isn't a "pet." So the pet charges disappear.</h2>
+        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:560px;margin:0 0 36px;">Under the Fair Housing Act, housing providers generally can't apply pet policies to a valid emotional support animal. Here's what that adds up to.</p>
+        <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+          <div class="pl-save">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;color:#183840;margin-bottom:16px;">Monthly pet rent</div>
+            <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:18px;color:#A9938C;text-decoration:line-through;">$25–$60/mo</span></div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.02em;color:#1F7A53;margin-top:6px;">$0</div>
+            <div style="font-family:'Inter';font-size:13.5px;color:#7A888B;margin-top:8px;">Up to $720 saved a year.</div>
+          </div>
+          <div class="pl-save">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;color:#183840;margin-bottom:16px;">One-time pet deposit</div>
+            <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:18px;color:#A9938C;text-decoration:line-through;">$200–$500</span></div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.02em;color:#1F7A53;margin-top:6px;">$0</div>
+            <div style="font-family:'Inter';font-size:13.5px;color:#7A888B;margin-top:8px;">No deposit for a valid ESA.</div>
+          </div>
+          <div class="pl-save">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;color:#183840;margin-bottom:16px;">Breed &amp; size limits</div>
+            <div style="display:flex;align-items:baseline;gap:10px;"><span style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:18px;color:#A9938C;text-decoration:line-through;">Restricted</span></div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.02em;color:#1F7A53;margin-top:6px;">Exempt</div>
+            <div style="font-family:'Inter';font-size:13.5px;color:#7A888B;margin-top:8px;">Breed and weight caps don't apply.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- OBJECTION BAND -->
+  <section style="background:#183840;color:#fff;padding:clamp(60px,8vw,84px) clamp(20px,5vw,44px);position:relative;overflow:hidden;">
+    <div style="position:absolute;right:-80px;top:-60px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(232,120,96,.22),transparent 70%);"></div>
+    <div class="pl-grid2" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(36px,5vw,56px);align-items:start;position:relative;">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F0A892;margin-bottom:18px;">The part that stops most people</div>
+        <h2 class="pl-h2 pl-h2-light" style="margin:0;">Worried it's a scam — or that your landlord won't accept it?</h2>
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px;">
+          <div style="border-left:3px solid #E87860;padding-left:16px;font-family:'Inter';font-style:italic;font-size:clamp(15px,2.2vw,16.5px);line-height:1.5;color:rgba(255,255,255,.82);">"I was so skeptical. I'd read all the Reddit horror stories about fake PDFs."</div>
+          <div style="border-left:3px solid #E87860;padding-left:16px;font-family:'Inter';font-style:italic;font-size:clamp(15px,2.2vw,16.5px);line-height:1.5;color:rgba(255,255,255,.82);">"I figured it'd be some sketchy site that takes your money and vanishes."</div>
+        </div>
+      </div>
+      <div style="padding-top:6px;">
+        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 14px;">Fair. So here's exactly what you get: a <strong style="color:#fff;">live consultation with a licensed therapist</strong> — a real conversation, not a checkbox quiz — and a letter on <strong style="color:#fff;">their own practice letterhead</strong>, with their license number, written to your state's Fair Housing rules.</p>
+        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 26px;">If your landlord doesn't accept a valid letter, <strong style="color:#fff;">you're refunded.</strong> No fine print.</p>
+        <a href="#how" style="display:inline-flex;align-items:center;gap:9px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;padding:16px 30px;border-radius:13px;text-decoration:none;box-shadow:0 12px 30px rgba(232,120,96,.4);">See how it works <span style="font-size:17px;">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THERAPISTS (real licensed clinicians, real headshots & credentials) -->
+  <section id="therapists" style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">Who you'll talk to</div>
+      <div class="pl-sectionhead" style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:38px;">
+        <h2 class="pl-h2" style="margin:0;max-width:520px;">Licensed therapists, matched to your state.</h2>
+        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:380px;margin:0;">Every letter is written by a real clinician licensed where you live — never a generic template off a sketchy site.</p>
+      </div>
+      <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        <div class="pl-doc">
+          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2b066e746932638f596a9_Jennifer%20headshot.avif" alt="Jennifer Bronsnick, MSW, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
+          <div style="padding:22px 24px;">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Jennifer Bronsnick</div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">MSW, LCSW</div>
+            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">Anxiety treatment specialist · Heartmath certified</div>
+          </div>
+        </div>
+        <div class="pl-doc">
+          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2ae17a7c3997cbb3d551e_Emilie%20Kay%20headshot.avif" alt="Emilie Kay, MSW, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
+          <div style="padding:22px 24px;">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Emilie Kay</div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">MSW, LCSW</div>
+            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">8+ years in mental health · CBT &amp; DBT certified</div>
+          </div>
+        </div>
+        <div class="pl-doc">
+          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65aed803c6efd911cfb767b2_Beckman%20Photo%202024.avif" alt="Marvy Beckman, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
+          <div style="padding:22px 24px;">
+            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Marvy Beckman</div>
+            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">LCSW</div>
+            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">Licensed clinical social worker · Direct line on every letter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" style="background:#FBF1EB;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:36px;">How it works</div>
+      <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,40px);">
+        <div>
+          <div class="pl-num">1</div>
+          <h3 class="pl-h3">Take the 3-minute intake.</h3>
+          <p class="pl-step-p">Tell us about you and your pet. Completely online, nothing charged to start.</p>
+        </div>
+        <div>
+          <div class="pl-num">2</div>
+          <h3 class="pl-h3">Talk to a licensed therapist.</h3>
+          <p class="pl-step-p">A real consultation with a clinician licensed in your state — often the same week.</p>
+        </div>
+        <div>
+          <div class="pl-num">3</div>
+          <h3 class="pl-h3">Get your ESA letter.</h3>
+          <p class="pl-step-p">Valid for your state, on the therapist's own letterhead — typically within 24–48 hours. Money-back guaranteed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED (no explicit price — Pettable pricing-transparency rule) -->
+  <section id="start" style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+    <div class="pl-grid2" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,56px);align-items:center;">
+      <div>
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">What you actually get</div>
+        <h2 class="pl-h2" style="margin:0 0 22px;">One honest flow. No subscription games.</h2>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div class="pl-inc"><span class="pl-inc-c">✓</span><span>A live consultation with a therapist licensed in your state</span></div>
+          <div class="pl-inc"><span class="pl-inc-c">✓</span><span>A letter on the therapist's own practice letterhead, with their license number</span></div>
+          <div class="pl-inc"><span class="pl-inc-c">✓</span><span>Written to your state's Fair Housing Act requirements</span></div>
+          <div class="pl-inc"><span class="pl-inc-c">✓</span><span>Typically delivered within 24–48 hours</span></div>
+          <div class="pl-inc"><span class="pl-inc-c">✓</span><span>Free revisions if your housing provider needs anything adjusted</span></div>
+        </div>
+      </div>
+      <div style="background:#FBF1EB;border:1px solid rgba(24,56,64,.08);border-radius:20px;padding:clamp(28px,4vw,40px);text-align:center;">
+        <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#8A9699;">Housing ESA letter</div>
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:clamp(24px,4vw,30px);letter-spacing:-.02em;color:#183840;margin:14px 0 6px;line-height:1.15;">Backed by a full money-back guarantee</div>
+        <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-bottom:22px;">If your landlord doesn't accept a valid letter, you're refunded. HSA/FSA eligible.</div>
+        <a href={CTA} class="cta" style="display:flex;align-items:center;justify-content:center;gap:9px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:17px;padding:17px;border-radius:13px;text-decoration:none;box-shadow:0 12px 30px rgba(232,120,96,.38);">Get My ESA Letter <span style="font-size:18px;">&rarr;</span></a>
+        <div style="display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-family:'Plus Jakarta Sans';font-weight:600;font-size:13px;color:#5C6B6F;"><span style="color:#00B67A;">✓</span> 100% money-back guarantee</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:#FBF1EB;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
+    <div style="max-width:840px;margin:0 auto;">
+      <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;text-align:center;">Common questions</div>
+      <h2 class="pl-h2" style="margin:0 0 32px;text-align:center!important;">The honest answers.</h2>
+      <div style="background:#fff;border:1px solid rgba(24,56,64,.07);border-radius:16px;padding:6px clamp(20px,4vw,32px);">
+        <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;" open="">
+          <summary class="pl-sum">Is a Pettable ESA letter actually legitimate?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">Yes. Every letter is written by an independent clinician licensed in your state, on their own letterhead, after a real live consultation. It's never a template or an instant auto-generated PDF.</p>
+        </details>
+        <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
+          <summary class="pl-sum">Will my landlord have to accept it?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">Under the Fair Housing Act, housing providers must reasonably accommodate a valid ESA letter and generally can't charge pet fees or deposits for it. If your landlord doesn't accept a valid letter, you're refunded.</p>
+        </details>
+        <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
+          <summary class="pl-sum">How fast will I get my letter?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">Most people complete the consultation and receive their letter within 24–48 hours of their appointment.</p>
+        </details>
+        <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
+          <summary class="pl-sum">What's the difference between an ESA and a service animal?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">A service animal is individually trained to perform a task for a disability and has public-access rights. An emotional support animal provides comfort through companionship and is protected in housing — it doesn't require special training.</p>
+        </details>
+        <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
+          <summary class="pl-sum">Can my landlord still charge pet rent or a deposit?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">For a valid ESA, a housing provider generally can't charge pet rent, pet deposits, or apply breed or size restrictions under the Fair Housing Act.</p>
+        </details>
+        <details style="padding:20px 0;">
+          <summary class="pl-sum">What if I don't qualify?<span class="pl-faqsign">+</span></summary>
+          <p class="pl-faq-a">If the therapist determines an ESA letter isn't clinically appropriate, you don't pay for the letter. The conversation is honest — it's a real assessment, not a rubber stamp.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="background:radial-gradient(120% 80% at 50% 120%,#FCE7DD 0%,#fff 60%);padding:clamp(64px,9vw,96px) clamp(20px,5vw,44px);text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
+      <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:18px;">Take the first step</div>
+      {variant === "emotional" ? (
+        <>
+          <h2 class="pl-h2 pl-final-h" style="margin:0;text-align:center!important;">Make it official.</h2>
+          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">Thousands of pet parents already have. Your best friend stays right where they belong.</p>
+        </>
+      ) : (
+        <>
+          <h2 class="pl-h2 pl-final-h" style="margin:0;text-align:center!important;">Stop paying to keep your best friend.</h2>
+          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">No pet rent. No deposit. No breed limits. Just a legitimate ESA letter — and your pet, right where they belong.</p>
+        </>
+      )}
+      <a href={CTA} class="cta" style="display:inline-flex;align-items:center;gap:10px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:18px;padding:19px clamp(28px,5vw,44px);border-radius:14px;text-decoration:none;box-shadow:0 14px 34px rgba(232,120,96,.4);">Get My ESA Letter <span style="font-size:19px;">&rarr;</span></a>
+      <div style="font-family:'Inter';font-size:13.5px;color:#9AA4A5;margin-top:18px;">3-minute intake · licensed therapists · money-back guarantee</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#183840;color:rgba(255,255,255,.72);padding:46px clamp(20px,5vw,44px) 40px;">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div class="pl-foot-top">
+        <img src="https://cdn.prod.website-files.com/5efb22ae1cebe1d23aa0554c/5f358868b4462ec95b279ece_pettable-fav-32x32.png" alt="" style="height:0;width:0;opacity:0;position:absolute;" />
+        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:20px;letter-spacing:-.02em;color:#fff;">Pettable</div>
+        <div style="display:flex;gap:clamp(16px,3vw,26px);flex-wrap:wrap;font-family:'Plus Jakarta Sans';font-weight:600;font-size:14px;">
+          <a href="#how" style="color:rgba(255,255,255,.8);text-decoration:none;">How it works</a>
+          <a href="#therapists" style="color:rgba(255,255,255,.8);text-decoration:none;">The therapists</a>
+          <a href="#faq" style="color:rgba(255,255,255,.8);text-decoration:none;">FAQ</a>
+          <a href="https://pettable.com/privacy-policy" style="color:rgba(255,255,255,.8);text-decoration:none;">Privacy Policy</a>
+          <a href="https://pettable.com/terms" style="color:rgba(255,255,255,.8);text-decoration:none;">Terms of Use</a>
+        </div>
+      </div>
+      <p style="font-family:'Inter';font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.5);margin:0;max-width:900px;">Pettable connects you with independent licensed clinicians who determine, in their professional judgment, whether an emotional-support-animal letter is appropriate. A letter is never guaranteed. Pettable does not provide legal advice; ESA accommodations are governed by the Fair Housing Act and may be subject to landlord review. © 2026 Pettable, a Receptive company.</p>
+    </div>
+  </footer>
+
+  <!-- STICKY MOBILE CTA -->
+  <div class="pl-sticky" id="plSticky">
+    <div style="line-height:1.15;">
+      <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:13px;color:#183840;">4.7 ★ · letters in 24–48 hrs</div>
+      <div style="font-family:'Inter';font-size:11px;color:#8A9699;">Money-back guarantee</div>
+    </div>
+    <a href={CTA} class="cta" style="flex:1;max-width:58%;text-align:center;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;padding:14px;border-radius:12px;text-decoration:none;">Get My ESA Letter</a>
+  </div>
+
+</div>
+
+<style is:global>
+  /* clear the fixed Pettable nav (alert + upper + main stack): 124px desktop, 85px mobile */
+  main{margin-top:124px;}
+  @media (max-width:860px){ main{margin-top:88px;} }
+
+  /* ---- scoped to .pl-root so Webflow shared CSS and these don't fight ---- */
+  .pl-root *{box-sizing:border-box;}
+  .pl-root summary{list-style:none;}
+  .pl-root summary::-webkit-details-marker{display:none;}
+  .pl-root img{display:block;max-width:100%;}
+
+  .pl-h2{font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.03em;font-size:clamp(28px,4.5vw,40px);line-height:1.1;color:#183840;text-align:left!important;text-wrap:pretty;}
+  .pl-h2-light{color:#fff!important;font-size:clamp(30px,4.6vw,42px);line-height:1.08;}
+  .pl-final-h{font-size:clamp(34px,6vw,50px);line-height:1.06;}
+  .pl-h3{font-family:'Plus Jakarta Sans';font-weight:700;font-size:22px;letter-spacing:-.02em;color:#183840;margin:0 0 10px;}
+  .pl-step-p{font-family:'Inter';font-size:15.5px;line-height:1.65;color:#5C6B6F;margin:0;}
+  .pl-num{width:44px;height:44px;border-radius:50%;background:#E87860;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans';font-weight:800;font-size:18px;margin-bottom:20px;}
+
+  .pl-badge{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(24,56,64,.08);border-radius:100px;padding:9px 16px;font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#183840;}
+  .pl-rev,.pl-save{background:#FBF4F0;border:1px solid rgba(24,56,64,.07);border-radius:16px;padding:26px;}
+  .pl-inc{display:flex;gap:12px;align-items:flex-start;font-family:'Inter';font-size:15.5px;line-height:1.5;color:#3F4F53;}
+  .pl-inc-c{color:#E87860;font-weight:700;margin-top:1px;}
+
+  .pl-doc{border-radius:16px;overflow:hidden;background:#FBF4F0;border:1px solid rgba(24,56,64,.07);}
+  .pl-doc-pic{aspect-ratio:1/1;position:relative;background:#EBD3C8;}
+  .pl-doc-pic img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+  .pl-doc-badge{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:100px;padding:6px 12px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:12px;color:#183840;}
+
+  .pl-sum{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:clamp(16px,2.4vw,18px);color:#183840;}
+  .pl-faq-a{font-family:'Inter';font-size:15.5px;line-height:1.65;color:#5C6B6F;margin:14px 0 0;}
+  .pl-faqsign{transition:transform .2s ease;color:#E87860;font-size:26px;font-weight:500;line-height:1;}
+  .pl-root details[open] .pl-faqsign{transform:rotate(45deg);}
+
+  /* CTA hovers */
+  .pl-root a.cta:hover{filter:brightness(.94);}
+
+  /* ===== UGC VIDEO WALL ===== */
+  .pl-ugc{display:flex;align-items:flex-end;justify-content:center;gap:16px;max-width:1080px;margin:42px auto 0;padding:8px 4px 12px;}
+  .pl-reel{flex:0 0 168px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;position:relative;background:#183840;
+    box-shadow:0 16px 40px rgba(24,56,64,.18);cursor:pointer;margin-bottom:6px;
+    transition:transform .45s cubic-bezier(.2,.8,.3,1),box-shadow .45s ease,opacity .45s ease;}
+  .pl-reel video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#183840;}
+  .pl-reel::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+    background:linear-gradient(180deg,rgba(8,20,38,.14) 0%,rgba(8,20,38,0) 22%,rgba(4,12,28,0) 70%,rgba(4,12,28,.28) 100%);}
+  .pl-mute{position:absolute;top:11px;right:11px;z-index:3;width:26px;height:26px;border-radius:50%;pointer-events:none;
+    background:rgba(8,18,36,.44);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;}
+  .pl-mute svg{width:13px;height:13px;fill:#fff;opacity:.95;}
+  /* desktop staggered fan: 1 & 5 small + low, 2 & 4 mid, 3 lead/center big */
+  .pl-reel[data-n="1"],.pl-reel[data-n="5"]{flex-basis:150px;margin-bottom:18px;}
+  .pl-reel.lead{flex-basis:214px;margin-bottom:30px;border-radius:22px;box-shadow:0 26px 60px rgba(197,88,65,.32);}
+  .pl-reel.extra{display:none;}
+
+  @media (min-width:900px){
+    .pl-reel:not(.is-active){opacity:.9;}
+    .pl-reel.is-active{z-index:3;}
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:860px){
+    .pl-grid2{grid-template-columns:1fr!important;gap:34px!important;}
+    .pl-grid3{grid-template-columns:1fr!important;}
+    .pl-trust{flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
+    .pl-trustbadges{justify-content:flex-start!important;}
+    .pl-sectionhead{flex-direction:column!important;align-items:flex-start!important;}
+    /* video wall becomes a swipe carousel showing all 8 */
+    .pl-ugc{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scroll-padding-inline:20px;align-items:center;}
+    .pl-ugc::-webkit-scrollbar{display:none;}
+    .pl-reel,.pl-reel[data-n="1"],.pl-reel[data-n="5"],.pl-reel.lead{flex:0 0 150px;flex-basis:150px;margin-bottom:0;scroll-snap-align:center;}
+    .pl-reel.lead{flex:0 0 172px;flex-basis:172px;}
+    .pl-reel.extra{display:block;}
+  }
+
+  /* footer top row */
+  .pl-foot-top{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:26px;margin-bottom:24px;}
+
+  /* sticky mobile CTA */
+  .pl-sticky{display:none;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid rgba(24,56,64,.1);
+    padding:11px 16px max(11px,env(safe-area-inset-bottom)) 16px;align-items:center;justify-content:space-between;gap:12px;z-index:60;
+    box-shadow:0 -6px 24px rgba(24,56,64,.12);transform:translateY(130%);transition:transform .4s cubic-bezier(.2,.8,.3,1);}
+  .pl-sticky.show{transform:translateY(0);}
+  @media (max-width:860px){.pl-sticky{display:flex;}.pl-root{padding-bottom:78px;}}
+</style>
+
+<script is:inline>
+  (function () {
+    /* UTM passthrough: merge LP query params onto every Pettable CTA so paid attribution survives the click */
+    (function () {
+      var search = window.location.search;
+      if (!search) return;
+      var incoming = new URLSearchParams(search);
+      document.querySelectorAll('a.cta, a[href*="/get-started"]').forEach(function (a) {
+        var href = a.getAttribute('href'); if (!href) return;
+        try {
+          var u = new URL(href, window.location.origin);
+          incoming.forEach(function (val, key) { u.searchParams.set(key, val); });
+          a.setAttribute('href', u.toString());
+        } catch (e) {}
+      });
+    })();
+
+    /* sticky mobile CTA appears once the hero CTA scrolls away */
+    var sticky = document.getElementById('plSticky');
+    if (sticky) {
+      var onScroll = function () { if (window.scrollY > 480) sticky.classList.add('show'); else sticky.classList.remove('show'); };
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    }
+
+    /* reels: muted loop, autoplay only while in view (keeps mobile from fetching all at once) */
+    var vids = document.querySelectorAll('.pl-reel video');
+    vids.forEach(function (v) { v.muted = true; v.setAttribute('muted', ''); v.playsInline = true; });
+    function tryPlay(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) tryPlay(e.target); else e.target.pause(); });
+      }, { threshold: 0.25 });
+      vids.forEach(function (v) { io.observe(v); });
+    } else { vids.forEach(tryPlay); }
+
+    /* desktop: click a reel to feature it (scales up via .is-active); mobile stays a swipe carousel */
+    var reelEls = document.querySelectorAll('.pl-ugc .pl-reel');
+    reelEls.forEach(function (reel) {
+      reel.addEventListener('click', function () {
+        if (window.matchMedia('(min-width:900px)').matches) {
+          reelEls.forEach(function (r) { r.classList.toggle('is-active', r === reel); });
+        }
+      });
+    });
+
+    /* center the lead reel in the mobile carousel on load */
+    var rw = document.getElementById('plUgc');
+    if (rw && window.matchMedia('(max-width:860px)').matches) {
+      var lead = rw.querySelector('.pl-reel.lead');
+      if (lead) rw.scrollLeft = lead.offsetLeft - (rw.clientWidth - lead.clientWidth) / 2;
+    }
+  })();
+</script>
