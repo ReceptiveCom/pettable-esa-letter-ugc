@@ -17,6 +17,8 @@ const CTA = "https://pettable.com/get-started";
 // reels 6-8 are mobile-carousel-only ("extra"); desktop shows the 5-card fan.
 const reels = [1, 2, 3, 4, 5, 6, 7, 8];
 const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>`;
+// Official Trustpilot green star logomark (paired with the "Trustpilot" wordmark)
+const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="true" style="display:block"><rect width="96" height="96" fill="#00B67A"/><path fill="#fff" d="M48 64.7 62.6 61l6.1 18.8L48 64.7zM81.6 40.4H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2L81.6 40.4z"/></svg>`;
 ---
 
 <div class="pl-root" style="font-family:'Inter',system-ui,sans-serif;color:#183840;background:#fff;-webkit-font-smoothing:antialiased;">
@@ -28,19 +30,19 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
         <>
           <div style="font-family:'Plus Jakarta Sans';font-size:clamp(11px,2vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:16px;">Real ESA letters · Licensed therapists</div>
           <h1 style="font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.035em;font-size:clamp(34px,6.2vw,58px);line-height:1.04;margin:0;color:#183840;text-align:center!important;text-wrap:pretty;">Your pet already helps you. <span style="color:#E87860;">Now make it official.</span></h1>
-          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">Join thousands of pet parents getting a legitimate ESA letter from a licensed therapist — and keeping their best friend close, with no pet fees and no breed restrictions.</p>
+          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">Talk to a therapist licensed in your state and get a real ESA letter, so your pet can stay where they belong. No pet rent, no deposit, no breed rules.</p>
         </>
       ) : (
         <>
           <div style="font-family:'Plus Jakarta Sans';font-size:clamp(11px,2vw,12px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:16px;">No pet fees · No breed limits</div>
-          <h1 style="font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.035em;font-size:clamp(34px,6.2vw,58px);line-height:1.04;margin:0;color:#183840;text-align:center!important;text-wrap:pretty;">Keep your pet. Skip the fees. <span style="color:#E87860;">The legit way.</span></h1>
-          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">A legitimate ESA letter from a licensed therapist means no pet rent, no pet deposit, and no breed or size limits — recognized under the Fair Housing Act and accepted by your landlord.</p>
+          <h1 style="font-family:'Plus Jakarta Sans';font-weight:800;letter-spacing:-.035em;font-size:clamp(34px,6.2vw,58px);line-height:1.04;margin:0;color:#183840;text-align:center!important;text-wrap:pretty;">Keep your pet. <span style="color:#E87860;">Skip the pet fees.</span></h1>
+          <p style="font-size:clamp(16px,2.4vw,19px);line-height:1.6;color:#5C6B6F;max-width:600px;margin:20px auto 0;text-wrap:pretty;">A real ESA letter from a licensed therapist means no pet rent, no deposit, and no breed or size limits. It's protected under the Fair Housing Act.</p>
         </>
       )}
       <div style="margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:16px;">
         <a href={CTA} class="cta" style="display:inline-flex;align-items:center;gap:10px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:clamp(16px,2.4vw,18px);padding:18px clamp(28px,5vw,42px);border-radius:14px;text-decoration:none;box-shadow:0 12px 30px rgba(232,120,96,.38);">Get My ESA Letter <span style="font-size:19px;">&rarr;</span></a>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;font-family:'Plus Jakarta Sans';font-weight:600;font-size:clamp(12.5px,2vw,14px);color:#7A888B;">
-          <span style="letter-spacing:1px;color:#00B67A;font-size:15px;">★★★★★</span>
+          <img src={`${MEDIA}/trustpilot-stars.svg`} alt="Rated 4.7 out of 5 on Trustpilot" width="76" height="14" style="height:14px;width:auto;display:block;" />
           <span><strong style="color:#183840;">4.7</strong> on Trustpilot</span>
           <span style="color:#CBD3D4;">·</span>
           <span>Letters in 24–48 hrs</span>
@@ -59,18 +61,16 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
         </figure>
       ))}
     </div>
-    <div style="font-family:'Inter';font-size:11.5px;color:#A9B3B4;margin-top:14px;padding-bottom:36px;">Real clips from Pettable pet parents. Muted — tap any clip to feature it.</div>
+    <div style="padding-bottom:40px;"></div>
   </section>
 
   <!-- TRUST STRIP -->
   <section style="background:#FBF1EB;border-top:1px solid rgba(24,56,64,.06);border-bottom:1px solid rgba(24,56,64,.06);padding:22px clamp(20px,5vw,44px);">
     <div class="pl-trust" style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div style="font-family:'Plus Jakarta Sans';font-weight:800;font-size:34px;letter-spacing:-.02em;color:#183840;line-height:1;">4.7</div>
-        <div>
-          <div style="color:#00B67A;font-size:15px;letter-spacing:1px;">★★★★★</div>
-          <div style="font-family:'Inter';font-size:12.5px;color:#7A888B;">on Trustpilot · 5,942 reviews</div>
-        </div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:16px;letter-spacing:-.01em;color:#183840;line-height:1;"><span set:html={tpStar}></span>Trustpilot</span>
+        <img src={`${MEDIA}/trustpilot-stars.svg`} alt="Rated 4.7 out of 5 on Trustpilot" width="132" height="25" style="height:25px;width:auto;display:block;" />
+        <span style="font-family:'Inter';font-size:13px;color:#7A888B;"><strong style="color:#183840;font-weight:700;">4.7</strong> out of 5 · <strong style="color:#183840;font-weight:700;">6,233</strong> reviews</span>
       </div>
       <div class="pl-trustbadges" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
         <div class="pl-badge"><span style="color:#E87860;">✓</span> Licensed therapists in your state</div>
@@ -85,8 +85,8 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
     <!-- WRITTEN REVIEWS (real, verified Trustpilot quotes — honest attribution, no fabricated names) -->
     <section style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
       <div style="max-width:1180px;margin:0 auto;">
-        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">Skeptics, then believers</div>
-        <h2 class="pl-h2" style="margin:0 0 36px;max-width:640px;">Most people arrive unsure. Then this happens.</h2>
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">What customers say</div>
+        <h2 class="pl-h2" style="margin:0 0 36px;max-width:640px;">Most people show up skeptical.</h2>
         <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
           <div class="pl-rev">
             <div style="color:#00B67A;font-size:15px;letter-spacing:1px;margin-bottom:14px;">★★★★★</div>
@@ -111,8 +111,8 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
     <section style="background:#fff;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
       <div style="max-width:1180px;margin:0 auto;">
         <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">What you stop paying</div>
-        <h2 class="pl-h2" style="margin:0 0 12px;max-width:640px;">A valid ESA isn't a "pet." So the pet charges disappear.</h2>
-        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:560px;margin:0 0 36px;">Under the Fair Housing Act, housing providers generally can't apply pet policies to a valid emotional support animal. Here's what that adds up to.</p>
+        <h2 class="pl-h2" style="margin:0 0 12px;max-width:640px;">A valid ESA isn't a pet, so the pet charges don't apply.</h2>
+        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:560px;margin:0 0 36px;">Under the Fair Housing Act, a landlord generally can't apply pet rules to a valid emotional support animal. For most renters that adds up fast.</p>
         <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
           <div class="pl-save">
             <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;color:#183840;margin-bottom:16px;">Monthly pet rent</div>
@@ -142,16 +142,16 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
     <div style="position:absolute;right:-80px;top:-60px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(232,120,96,.22),transparent 70%);"></div>
     <div class="pl-grid2" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(36px,5vw,56px);align-items:start;position:relative;">
       <div>
-        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F0A892;margin-bottom:18px;">The part that stops most people</div>
-        <h2 class="pl-h2 pl-h2-light" style="margin:0;">Worried it's a scam — or that your landlord won't accept it?</h2>
+        <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F0A892;margin-bottom:18px;">The honest question</div>
+        <h2 class="pl-h2 pl-h2-light" style="margin:0;">Worried it's a scam, or that your landlord won't accept it?</h2>
         <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px;">
           <div style="border-left:3px solid #E87860;padding-left:16px;font-family:'Inter';font-style:italic;font-size:clamp(15px,2.2vw,16.5px);line-height:1.5;color:rgba(255,255,255,.82);">"I was so skeptical. I'd read all the Reddit horror stories about fake PDFs."</div>
           <div style="border-left:3px solid #E87860;padding-left:16px;font-family:'Inter';font-style:italic;font-size:clamp(15px,2.2vw,16.5px);line-height:1.5;color:rgba(255,255,255,.82);">"I figured it'd be some sketchy site that takes your money and vanishes."</div>
         </div>
       </div>
       <div style="padding-top:6px;">
-        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 14px;">Fair. So here's exactly what you get: a <strong style="color:#fff;">live consultation with a licensed therapist</strong> — a real conversation, not a checkbox quiz — and a letter on <strong style="color:#fff;">their own practice letterhead</strong>, with their license number, written to your state's Fair Housing rules.</p>
-        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 26px;">If your landlord doesn't accept a valid letter, <strong style="color:#fff;">you're refunded.</strong> No fine print.</p>
+        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 14px;">Fair. Here's what actually happens. You have a real <strong style="color:#fff;">consultation with a therapist licensed in your state</strong>, not a checkbox quiz. They write the letter on <strong style="color:#fff;">their own practice letterhead</strong>, with their license number, following your state's Fair Housing rules.</p>
+        <p style="font-family:'Inter';font-size:clamp(15.5px,2.3vw,17px);line-height:1.7;color:rgba(255,255,255,.88);margin:0 0 26px;">And if your landlord doesn't accept a valid letter, <strong style="color:#fff;">you get your money back.</strong></p>
         <a href="#how" style="display:inline-flex;align-items:center;gap:9px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;padding:16px 30px;border-radius:13px;text-decoration:none;box-shadow:0 12px 30px rgba(232,120,96,.4);">See how it works <span style="font-size:17px;">&rarr;</span></a>
       </div>
     </div>
@@ -163,32 +163,29 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
       <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">Who you'll talk to</div>
       <div class="pl-sectionhead" style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:38px;">
         <h2 class="pl-h2" style="margin:0;max-width:520px;">Licensed therapists, matched to your state.</h2>
-        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:380px;margin:0;">Every letter is written by a real clinician licensed where you live — never a generic template off a sketchy site.</p>
+        <p style="font-family:'Inter';font-size:16px;line-height:1.65;color:#5C6B6F;max-width:380px;margin:0;">Every letter is written by a clinician licensed where you live, with their name and license number on it. Not a template.</p>
       </div>
       <div class="pl-grid3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
         <div class="pl-doc">
-          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2b066e746932638f596a9_Jennifer%20headshot.avif" alt="Jennifer Bronsnick, MSW, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
-          <div style="padding:22px 24px;">
-            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Jennifer Bronsnick</div>
-            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">MSW, LCSW</div>
-            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">Anxiety treatment specialist · Heartmath certified</div>
-          </div>
+          <div class="pl-doc-av"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2b066e746932638f596a9_Jennifer%20headshot.avif" alt="Jennifer Bronsnick, MSW, LCSW" loading="lazy" /></div>
+          <span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed in your state</span>
+          <div class="pl-doc-name">Jennifer Bronsnick</div>
+          <div class="pl-doc-cred">MSW, LCSW</div>
+          <div class="pl-doc-desc">Anxiety treatment specialist · Heartmath certified</div>
         </div>
         <div class="pl-doc">
-          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2ae17a7c3997cbb3d551e_Emilie%20Kay%20headshot.avif" alt="Emilie Kay, MSW, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
-          <div style="padding:22px 24px;">
-            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Emilie Kay</div>
-            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">MSW, LCSW</div>
-            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">8+ years in mental health · CBT &amp; DBT certified</div>
-          </div>
+          <div class="pl-doc-av"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65b2ae17a7c3997cbb3d551e_Emilie%20Kay%20headshot.avif" alt="Emilie Kay, MSW, LCSW" loading="lazy" /></div>
+          <span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed in your state</span>
+          <div class="pl-doc-name">Emilie Kay</div>
+          <div class="pl-doc-cred">MSW, LCSW</div>
+          <div class="pl-doc-desc">8+ years in mental health · CBT &amp; DBT certified</div>
         </div>
         <div class="pl-doc">
-          <div class="pl-doc-pic"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65aed803c6efd911cfb767b2_Beckman%20Photo%202024.avif" alt="Marvy Beckman, LCSW" loading="lazy" /><span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed</span></div>
-          <div style="padding:22px 24px;">
-            <div style="font-family:'Plus Jakarta Sans';font-weight:700;font-size:19px;color:#183840;">Marvy Beckman</div>
-            <div style="font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#C55841;margin-top:3px;">LCSW</div>
-            <div style="font-family:'Inter';font-size:14px;color:#7A888B;margin-top:10px;">Licensed clinical social worker · Direct line on every letter</div>
-          </div>
+          <div class="pl-doc-av"><img src="https://cdn.prod.website-files.com/60cd7ae35efaf14623f555c5/65aed803c6efd911cfb767b2_Beckman%20Photo%202024.avif" alt="Marvy Beckman, LCSW" loading="lazy" /></div>
+          <span class="pl-doc-badge"><span style="color:#00B67A;">✓</span> Licensed in your state</span>
+          <div class="pl-doc-name">Marvy Beckman</div>
+          <div class="pl-doc-cred">LCSW</div>
+          <div class="pl-doc-desc">Licensed clinical social worker · Direct line on every letter</div>
         </div>
       </div>
     </div>
@@ -207,12 +204,12 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
         <div>
           <div class="pl-num">2</div>
           <h3 class="pl-h3">Talk to a licensed therapist.</h3>
-          <p class="pl-step-p">A real consultation with a clinician licensed in your state — often the same week.</p>
+          <p class="pl-step-p">A real consultation with a clinician licensed in your state, often the same week.</p>
         </div>
         <div>
           <div class="pl-num">3</div>
           <h3 class="pl-h3">Get your ESA letter.</h3>
-          <p class="pl-step-p">Valid for your state, on the therapist's own letterhead — typically within 24–48 hours. Money-back guaranteed.</p>
+          <p class="pl-step-p">Valid for your state, on the therapist's own letterhead. Typically within 24–48 hours, money-back guaranteed.</p>
         </div>
       </div>
     </div>
@@ -223,7 +220,7 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
     <div class="pl-grid2" style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,56px);align-items:center;">
       <div>
         <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;">What you actually get</div>
-        <h2 class="pl-h2" style="margin:0 0 22px;">One honest flow. No subscription games.</h2>
+        <h2 class="pl-h2" style="margin:0 0 22px;">No surprise charges. No subscription games.</h2>
         <div style="display:flex;flex-direction:column;gap:14px;">
           <div class="pl-inc"><span class="pl-inc-c">✓</span><span>A live consultation with a therapist licensed in your state</span></div>
           <div class="pl-inc"><span class="pl-inc-c">✓</span><span>A letter on the therapist's own practice letterhead, with their license number</span></div>
@@ -246,7 +243,7 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
   <section id="faq" style="background:#FBF1EB;padding:clamp(56px,8vw,84px) clamp(20px,5vw,44px);">
     <div style="max-width:840px;margin:0 auto;">
       <div style="font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C55841;margin-bottom:14px;text-align:center;">Common questions</div>
-      <h2 class="pl-h2" style="margin:0 0 32px;text-align:center!important;">The honest answers.</h2>
+      <h2 class="pl-h2" style="margin:0 0 32px;text-align:center!important;">Straight answers.</h2>
       <div style="background:#fff;border:1px solid rgba(24,56,64,.07);border-radius:16px;padding:6px clamp(20px,4vw,32px);">
         <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;" open="">
           <summary class="pl-sum">Is a Pettable ESA letter actually legitimate?<span class="pl-faqsign">+</span></summary>
@@ -262,7 +259,7 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
         </details>
         <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
           <summary class="pl-sum">What's the difference between an ESA and a service animal?<span class="pl-faqsign">+</span></summary>
-          <p class="pl-faq-a">A service animal is individually trained to perform a task for a disability and has public-access rights. An emotional support animal provides comfort through companionship and is protected in housing — it doesn't require special training.</p>
+          <p class="pl-faq-a">A service animal is individually trained to perform a task for a disability and has public-access rights. An emotional support animal provides comfort through companionship and is protected in housing, and doesn't require special training.</p>
         </details>
         <details style="border-bottom:1px solid rgba(24,56,64,.09);padding:20px 0;">
           <summary class="pl-sum">Can my landlord still charge pet rent or a deposit?<span class="pl-faqsign">+</span></summary>
@@ -270,7 +267,7 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
         </details>
         <details style="padding:20px 0;">
           <summary class="pl-sum">What if I don't qualify?<span class="pl-faqsign">+</span></summary>
-          <p class="pl-faq-a">If the therapist determines an ESA letter isn't clinically appropriate, you don't pay for the letter. The conversation is honest — it's a real assessment, not a rubber stamp.</p>
+          <p class="pl-faq-a">If the therapist determines an ESA letter isn't clinically appropriate, you don't pay for the letter. The conversation is honest. It's a real assessment, not a rubber stamp.</p>
         </details>
       </div>
     </div>
@@ -283,12 +280,12 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
       {variant === "emotional" ? (
         <>
           <h2 class="pl-h2 pl-final-h" style="margin:0;text-align:center!important;">Make it official.</h2>
-          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">Thousands of pet parents already have. Your best friend stays right where they belong.</p>
+          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">Thousands of pet parents already have. Your pet stays right where they belong.</p>
         </>
       ) : (
         <>
-          <h2 class="pl-h2 pl-final-h" style="margin:0;text-align:center!important;">Stop paying to keep your best friend.</h2>
-          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">No pet rent. No deposit. No breed limits. Just a legitimate ESA letter — and your pet, right where they belong.</p>
+          <h2 class="pl-h2 pl-final-h" style="margin:0;text-align:center!important;">Stop paying to keep your pet.</h2>
+          <p style="font-family:'Inter';font-size:clamp(16px,2.4vw,18px);line-height:1.6;color:#5C6B6F;margin:18px auto 30px;max-width:480px;">No pet rent. No deposit. No breed limits. Just a real ESA letter, and your pet right where they belong.</p>
         </>
       )}
       <a href={CTA} class="cta" style="display:inline-flex;align-items:center;gap:10px;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:18px;padding:19px clamp(28px,5vw,44px);border-radius:14px;text-decoration:none;box-shadow:0 14px 34px rgba(232,120,96,.4);">Get My ESA Letter <span style="font-size:19px;">&rarr;</span></a>
@@ -348,10 +345,13 @@ const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3
   .pl-inc{display:flex;gap:12px;align-items:flex-start;font-family:'Inter';font-size:15.5px;line-height:1.5;color:#3F4F53;}
   .pl-inc-c{color:#E87860;font-weight:700;margin-top:1px;}
 
-  .pl-doc{border-radius:16px;overflow:hidden;background:#FBF4F0;border:1px solid rgba(24,56,64,.07);}
-  .pl-doc-pic{aspect-ratio:1/1;position:relative;background:#EBD3C8;}
-  .pl-doc-pic img{width:100%;height:100%;object-fit:cover;object-position:center top;}
-  .pl-doc-badge{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;background:#fff;border-radius:100px;padding:6px 12px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:12px;color:#183840;}
+  .pl-doc{border-radius:16px;background:#FBF4F0;border:1px solid rgba(24,56,64,.07);padding:30px 24px 28px;text-align:center;}
+  .pl-doc-av{width:108px;height:108px;border-radius:50%;overflow:hidden;margin:0 auto 16px;background:#EBD3C8;box-shadow:0 6px 18px rgba(24,56,64,.12);}
+  .pl-doc-av img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+  .pl-doc-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid rgba(24,56,64,.08);border-radius:100px;padding:5px 12px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:11.5px;color:#183840;margin-bottom:12px;}
+  .pl-doc-name{font-family:'Plus Jakarta Sans';font-weight:700;font-size:18px;color:#183840;}
+  .pl-doc-cred{font-family:'Plus Jakarta Sans';font-weight:600;font-size:13px;color:#C55841;margin-top:3px;}
+  .pl-doc-desc{font-family:'Inter';font-size:13.5px;line-height:1.5;color:#7A888B;margin-top:10px;}
 
   .pl-sum{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Plus Jakarta Sans';font-weight:700;font-size:clamp(16px,2.4vw,18px);color:#183840;}
   .pl-faq-a{font-family:'Inter';font-size:15.5px;line-height:1.65;color:#5C6B6F;margin:14px 0 0;}
