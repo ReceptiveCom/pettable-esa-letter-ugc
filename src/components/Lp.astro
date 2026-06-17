@@ -75,8 +75,24 @@ const pressLogos = [
     <div style="padding-bottom:40px;"></div>
   </section>
 
+  <!-- PRESS / ACCREDITATION + VOLUME (first proof under the UGC wall) -->
+  <section style="background:#fff;border-top:1px solid rgba(24,56,64,.06);border-bottom:1px solid rgba(24,56,64,.06);padding:30px 0 26px;overflow:hidden;">
+    <div style="text-align:center;font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A9699;margin:0 clamp(20px,5vw,44px) 20px;text-wrap:balance;">Over <span style="color:#183840;">450,000</span> ESA letters issued · as featured in</div>
+    <div class="pl-marquee">
+      <div class="pl-marquee-track">
+        {[0,1,2].map((set) => (
+          <div class="pl-mset" aria-hidden={set > 0 ? "true" : undefined}>
+            {pressLogos.map(([file, name]) => (
+              <img src={`${CDN}${file}`} alt={set === 0 ? name : ""} loading="lazy" />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- TRUST STRIP -->
-  <section style="background:#FBF1EB;border-top:1px solid rgba(24,56,64,.06);border-bottom:1px solid rgba(24,56,64,.06);padding:22px clamp(20px,5vw,44px);">
+  <section style="background:#FBF1EB;border-bottom:1px solid rgba(24,56,64,.06);padding:22px clamp(20px,5vw,44px);">
     <div class="pl-trust" style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
       <div class="pl-tp" style="display:flex;flex-direction:column;gap:7px;">
         <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:16px;letter-spacing:-.01em;color:#183840;line-height:1;"><span set:html={tpStar}></span>Trustpilot</span>
@@ -88,22 +104,6 @@ const pressLogos = [
         <div class="pl-badge"><span style="color:#E87860;">✓</span> Money-back guarantee</div>
         <div class="pl-badge"><span style="color:#E87860;">✓</span> Fair Housing Act compliant</div>
         <div class="pl-badge"><span style="color:#E87860;">✓</span> 100% online</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRESS / ACCREDITATION + VOLUME -->
-  <section style="background:#fff;border-bottom:1px solid rgba(24,56,64,.06);padding:30px 0 26px;overflow:hidden;">
-    <div style="text-align:center;font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A9699;margin:0 clamp(20px,5vw,44px) 20px;text-wrap:balance;">Over <span style="color:#183840;">450,000</span> ESA letters issued · as featured in</div>
-    <div class="pl-marquee">
-      <div class="pl-marquee-track">
-        {[0,1,2].map((set) => (
-          <div class="pl-mset" aria-hidden={set > 0 ? "true" : undefined}>
-            {pressLogos.map(([file, name]) => (
-              <img src={`${CDN}${file}`} alt={set === 0 ? name : ""} loading="lazy" />
-            ))}
-          </div>
-        ))}
       </div>
     </div>
   </section>
