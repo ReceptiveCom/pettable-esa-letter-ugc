@@ -442,7 +442,7 @@ const pressLogos = [
   /* ===== RESPONSIVE ===== */
   @media (max-width:860px){
     .pl-grid2{grid-template-columns:1fr!important;gap:34px!important;}
-    .pl-grid3{grid-template-columns:1fr!important;}
+    .pl-grid3{grid-template-columns:1fr 1fr!important;}  /* tablet: 2-up so cards don't stretch */
     /* tidy, centered trust strip instead of a tall ragged left-aligned column */
     .pl-trust{flex-direction:column!important;align-items:center!important;gap:16px!important;text-align:center;}
     .pl-tp{align-items:center!important;}
@@ -458,6 +458,9 @@ const pressLogos = [
     .pl-reel.lead{flex:0 0 172px;flex-basis:172px;}
     .pl-reel.extra{display:block;}
   }
+
+  /* phones: single column (tablet 2-up collapses to 1-up) */
+  @media (max-width:600px){ .pl-grid3{grid-template-columns:1fr!important;} }
 
   /* footer top row */
   .pl-foot-top{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:26px;margin-bottom:24px;}
