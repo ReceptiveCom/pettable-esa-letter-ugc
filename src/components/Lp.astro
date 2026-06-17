@@ -19,6 +19,17 @@ const reels = [1, 2, 3, 4, 5, 6, 7, 8];
 const muteIcon = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4z"/></svg>`;
 // Official Trustpilot green star logomark (paired with the "Trustpilot" wordmark)
 const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="true" style="display:block"><rect width="96" height="96" fill="#00B67A"/><path fill="#fff" d="M48 64.7 62.6 61l6.1 18.8L48 64.7zM81.6 40.4H55.9L48 16.2l-7.9 24.2H14.4l20.8 15-7.9 24.2 20.8-15 12.8-9.2L81.6 40.4z"/></svg>`;
+// Press / accreditation logos (real Pettable CDN assets), shown as a greyscale scrolling marquee
+const CDN = "https://cdn.prod.website-files.com/5efb22ae1cebe1d23aa0554c/";
+const pressLogos = [
+  ["67e6d64f7307d0cbf3b19b19_Newsweek.svg", "Newsweek"],
+  ["67e6d64f9db49d3a2c56e3d4_thrillist.svg", "Thrillist"],
+  ["67e6d90bf4e2a98a09a4a074_ABC%20News.svg", "ABC News"],
+  ["67e6d64fd3422c2fe1bbddab_CBS.svg", "CBS"],
+  ["67e6d64f5f00ab48fd5aec8d_HIPAA.svg", "HIPAA compliant"],
+  ["67f557865e58287fa1dd91cb_bbb-new.png", "BBB accredited"],
+  ["67f55786cbc33f0b94d6aaba_consumer-affairs-logo.png", "Consumer Affairs"],
+];
 ---
 
 <div class="pl-root" style="font-family:'Inter',system-ui,sans-serif;color:#183840;background:#fff;-webkit-font-smoothing:antialiased;">
@@ -67,7 +78,7 @@ const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="tru
   <!-- TRUST STRIP -->
   <section style="background:#FBF1EB;border-top:1px solid rgba(24,56,64,.06);border-bottom:1px solid rgba(24,56,64,.06);padding:22px clamp(20px,5vw,44px);">
     <div class="pl-trust" style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;">
-      <div style="display:flex;flex-direction:column;gap:7px;">
+      <div class="pl-tp" style="display:flex;flex-direction:column;gap:7px;">
         <span style="display:inline-flex;align-items:center;gap:7px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:16px;letter-spacing:-.01em;color:#183840;line-height:1;"><span set:html={tpStar}></span>Trustpilot</span>
         <img src={`${MEDIA}/trustpilot-stars.svg`} alt="Rated 4.7 out of 5 on Trustpilot" width="132" height="25" style="height:25px;width:auto;display:block;" />
         <span style="font-family:'Inter';font-size:13px;color:#7A888B;"><strong style="color:#183840;font-weight:700;">4.7</strong> out of 5 · <strong style="color:#183840;font-weight:700;">6,233</strong> reviews</span>
@@ -77,6 +88,22 @@ const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="tru
         <div class="pl-badge"><span style="color:#E87860;">✓</span> Money-back guarantee</div>
         <div class="pl-badge"><span style="color:#E87860;">✓</span> Fair Housing Act compliant</div>
         <div class="pl-badge"><span style="color:#E87860;">✓</span> 100% online</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS / ACCREDITATION + VOLUME -->
+  <section style="background:#fff;border-bottom:1px solid rgba(24,56,64,.06);padding:30px 0 26px;overflow:hidden;">
+    <div style="text-align:center;font-family:'Plus Jakarta Sans';font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8A9699;margin:0 clamp(20px,5vw,44px) 20px;text-wrap:balance;">Over <span style="color:#183840;">450,000</span> ESA letters issued · as featured in</div>
+    <div class="pl-marquee">
+      <div class="pl-marquee-track">
+        {[0,1,2].map((set) => (
+          <div class="pl-mset" aria-hidden={set > 0 ? "true" : undefined}>
+            {pressLogos.map(([file, name]) => (
+              <img src={`${CDN}${file}`} alt={set === 0 ? name : ""} loading="lazy" />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -342,6 +369,14 @@ const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="tru
 
   .pl-badge{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid rgba(24,56,64,.08);border-radius:100px;padding:9px 16px;font-family:'Plus Jakarta Sans';font-weight:600;font-size:13.5px;color:#183840;}
   .pl-rev,.pl-save{background:#FBF4F0;border:1px solid rgba(24,56,64,.07);border-radius:16px;padding:26px;}
+
+  /* ===== PRESS / ACCREDITATION MARQUEE ===== */
+  .pl-marquee{overflow:hidden;}
+  .pl-marquee-track{display:flex;width:max-content;animation:plmarquee 40s linear infinite;}
+  .pl-mset{display:flex;align-items:center;gap:46px;padding-right:46px;flex-shrink:0;}
+  .pl-mset img{height:26px!important;width:auto!important;opacity:.5!important;filter:grayscale(100%)!important;}
+  @keyframes plmarquee{from{transform:translateX(0)}to{transform:translateX(-33.3333%)}}
+  @media (prefers-reduced-motion:reduce){ .pl-marquee-track{animation:none!important;justify-content:center;flex-wrap:wrap;gap:24px 0;} .pl-mset:not(:first-child){display:none;} }
   .pl-inc{display:flex;gap:12px;align-items:flex-start;font-family:'Inter';font-size:15.5px;line-height:1.5;color:#3F4F53;}
   .pl-inc-c{color:#E87860;font-weight:700;margin-top:1px;}
 
@@ -386,9 +421,14 @@ const tpStar = `<svg viewBox="0 0 96 96" width="17" height="17" aria-hidden="tru
   @media (max-width:860px){
     .pl-grid2{grid-template-columns:1fr!important;gap:34px!important;}
     .pl-grid3{grid-template-columns:1fr!important;}
-    .pl-trust{flex-direction:column!important;align-items:flex-start!important;gap:18px!important;}
-    .pl-trustbadges{justify-content:flex-start!important;}
+    /* tidy, centered trust strip instead of a tall ragged left-aligned column */
+    .pl-trust{flex-direction:column!important;align-items:center!important;gap:16px!important;text-align:center;}
+    .pl-tp{align-items:center!important;}
+    .pl-trustbadges{justify-content:center!important;gap:8px!important;}
+    .pl-badge{font-size:12px!important;padding:7px 13px!important;gap:6px!important;}
     .pl-sectionhead{flex-direction:column!important;align-items:flex-start!important;}
+    .pl-mset{gap:30px!important;padding-right:30px!important;}
+    .pl-mset img{height:20px!important;}
     /* video wall becomes a swipe carousel showing all 8 */
     .pl-ugc{justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;scroll-padding-inline:20px;align-items:center;}
     .pl-ugc::-webkit-scrollbar{display:none;}
