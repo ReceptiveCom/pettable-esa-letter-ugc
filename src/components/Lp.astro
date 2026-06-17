@@ -67,7 +67,7 @@ const pressLogos = [
     <div class="pl-ugc" id="plUgc">
       {reels.map((n) => (
         <figure class={`pl-reel${n === 3 ? " lead is-active" : ""}${n > 5 ? " extra" : ""}`} data-n={n}>
-          <video src={`${MEDIA}/reel${n}.mp4`} poster={`${MEDIA}/reel${n}.webp`} muted loop playsinline preload={n === 3 ? "metadata" : "none"} aria-label="Clip from a Pettable pet parent"></video>
+          <video src={`${MEDIA}/reel${n}.mp4`} poster={`${MEDIA}/reel${n}.webp`} muted loop playsinline preload={n === 3 ? "metadata" : "none"} disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback" aria-label="Clip from a Pettable pet parent"></video>
           <span class="pl-mute" aria-hidden="true" set:html={muteIcon}></span>
         </figure>
       ))}
@@ -347,6 +347,15 @@ const pressLogos = [
     <a href={CTA} class="cta" style="flex:1;max-width:58%;text-align:center;background:#E87860;color:#fff;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;padding:14px;border-radius:12px;text-decoration:none;">Get My ESA Letter</a>
   </div>
 
+  <!-- TAP-TO-ENLARGE LIGHTBOX (contained "big but not fullscreen"; muted, no controls) -->
+  <div class="pl-lightbox" id="plLightbox" aria-hidden="true">
+    <button class="pl-lightbox-close" id="plLightboxClose" aria-label="Close video" type="button">&times;</button>
+    <figure class="pl-lightbox-card">
+      <video id="plLightboxVideo" muted loop playsinline preload="none" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+      <span class="pl-mute" aria-hidden="true" set:html={muteIcon}></span>
+    </figure>
+  </div>
+
 </div>
 
 <style is:global>
@@ -401,7 +410,20 @@ const pressLogos = [
   .pl-reel{flex:0 0 168px;aspect-ratio:9/16;border-radius:20px;overflow:hidden;position:relative;background:#183840;
     box-shadow:0 16px 40px rgba(24,56,64,.18);cursor:pointer;margin-bottom:6px;
     transition:transform .45s cubic-bezier(.2,.8,.3,1),box-shadow .45s ease,opacity .45s ease;}
-  .pl-reel video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#183840;}
+  /* pointer-events:none so the tap hits the figure (opens lightbox), never the native video player */
+  .pl-reel video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#183840;pointer-events:none;}
+
+  /* tap-to-enlarge lightbox — big, contained, never native fullscreen, no unmute */
+  .pl-lightbox{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;
+    background:rgba(8,18,36,.82);backdrop-filter:blur(6px);padding:24px;cursor:zoom-out;}
+  .pl-lightbox.open{display:flex;}
+  .pl-lightbox-card{position:relative;height:min(82vh,760px);aspect-ratio:9/16;max-width:calc(100vw - 48px);border-radius:22px;
+    overflow:hidden;background:#183840;box-shadow:0 30px 80px rgba(0,0,0,.5);margin:0;cursor:default;}
+  .pl-lightbox-card video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;background:#183840;}
+  .pl-lightbox-close{position:absolute;top:18px;right:18px;z-index:210;width:42px;height:42px;border-radius:50%;border:none;
+    background:rgba(255,255,255,.92);color:#183840;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);}
+  .pl-lightbox-close:hover{background:#fff;}
   .pl-reel::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
     background:linear-gradient(180deg,rgba(8,20,38,.14) 0%,rgba(8,20,38,0) 22%,rgba(4,12,28,0) 70%,rgba(4,12,28,.28) 100%);}
   .pl-mute{position:absolute;top:11px;right:11px;z-index:3;width:26px;height:26px;border-radius:50%;pointer-events:none;
@@ -483,15 +505,37 @@ const pressLogos = [
       vids.forEach(function (v) { io.observe(v); });
     } else { vids.forEach(tryPlay); }
 
-    /* desktop: click a reel to feature it (scales up via .is-active); mobile stays a swipe carousel */
+    /* tap/click any reel -> enlarge it in a contained lightbox (big, not native fullscreen, no unmute) */
     var reelEls = document.querySelectorAll('.pl-ugc .pl-reel');
-    reelEls.forEach(function (reel) {
-      reel.addEventListener('click', function () {
-        if (window.matchMedia('(min-width:900px)').matches) {
-          reelEls.forEach(function (r) { r.classList.toggle('is-active', r === reel); });
-        }
-      });
-    });
+    var lb = document.getElementById('plLightbox');
+    var lbVideo = document.getElementById('plLightboxVideo');
+    var lbClose = document.getElementById('plLightboxClose');
+    function openLightbox(reel) {
+      if (!lb || !lbVideo) return;
+      var v = reel.querySelector('video');
+      if (!v) return;
+      lbVideo.poster = v.getAttribute('poster') || '';
+      lbVideo.src = v.currentSrc || v.getAttribute('src');
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbVideo.currentTime = 0;
+      var p = lbVideo.play(); if (p && p.catch) p.catch(function () {});
+    }
+    function closeLightbox() {
+      if (!lb) return;
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbVideo.pause();
+    }
+    reelEls.forEach(function (reel) { reel.addEventListener('click', function () { openLightbox(reel); }); });
+    if (lb) {
+      /* click backdrop closes; clicks inside the enlarged card do not */
+      lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+      if (lbClose) lbClose.addEventListener('click', closeLightbox);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+    }
 
     /* center the lead reel in the mobile carousel on load */
     var rw = document.getElementById('plUgc');
