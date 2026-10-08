@@ -44,8 +44,6 @@ const {
     <link rel="preconnect" href="https://cdn.prod.website-files.com" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link rel="preconnect" href="https://uploads-ssl.webflow.com" crossorigin />
-    <link rel="dns-prefetch" href="https://uploads-ssl.webflow.com" />
 
     {/* Favicons */}
     <link rel="shortcut icon" href="https://cdn.prod.website-files.com/5efb22ae1cebe1d23aa0554c/5f358868b4462ec95b279ece_pettable-fav-32x32.png" type="image/x-icon" />
@@ -78,8 +76,22 @@ const {
       !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
     </script>
 
-    {/* Convert.com A/B testing — Pettable container */}
-    <script is:inline>
+    <slot name="head" />
+
+    <!-- Optional: Pre-styled banner CSS -->
+    <link rel="stylesheet" href="https://cdn.oursprivacy.com/consent.css">
+
+    <!-- Required: Installation script -->
+    <script is:inline src="https://cdn.oursprivacy.com/main.js"></script>
+    <script is:inline src="https://cdn.oursprivacy.com/cmp-init?token=i3fv6hx4w828bl4envc9ehth"></script>
+    <script is:inline src="https://cdn.oursprivacy.com/tag-manager-init?token=ubpix0qicyl1vf9ds6pkhfau"></script>
+
+    <link rel="preconnect" href="https://uploads-ssl.webflow.com" crossorigin>
+    <link rel="dns-prefetch" href="https://uploads-ssl.webflow.com">
+
+    <!--begin Convert Experiences code-->
+      <script is:inline type="text/javascript">
+      // fill in the values for the variables that you want to use
       var _conv_page_type = "";
       var _conv_category_id = "";
       var _conv_category_name = "";
@@ -91,30 +103,78 @@ const {
       var _conv_custom_v2 = "";
       var _conv_custom_v3 = "";
       var _conv_custom_v4 = "";
-    </script>
-    <script is:inline src="//cdn-4.convertexperiments.com/v1/js/10041372-10042036.js?environment=production"></script>
+      <!--end of editing here-->
+      </script>
+      <script is:inline type="text/javascript" src="//cdn-4.convertexperiments.com/v1/js/10041372-10042036.js?environment=production"></script>
+    <!-- end Convert Experiences code -->
+    <!-- Ahrefs Tracking -->
+    <script is:inline src="https://analytics.ahrefs.com/analytics.js" data-key="ep6Z5bYvgTaZJ4hneTJqaw" async></script>
+    <!-- End Ahrefs Tracking -->
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://load.sst.pettable.com/xkinbqvm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PDSBJ4K');</script>
+    <!-- End Google Tag Manager -->
 
-    {/* Ahrefs site analytics */}
-    <script is:inline async src="https://analytics.ahrefs.com/analytics.js"></script>
+    <!-- [Attributes by Finsweet] Disable scrolling -->
+    <script is:inline defer src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-scrolldisable@1/scrolldisable.js"></script>
 
-    {/* Stape server-side GTM via sst.pettable.com — GTM-PDSBJ4K */}
-    <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://load.sst.pettable.com/xkinbqvm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PDSBJ4K');
-    </script>
+    <!-- Custom styling for all pages -->
+    <style is:inline>
+    * {
+      -webkit-font-smoothing: antialiased;
+    }
 
-    {/* JSON-LD WebSite schema */}
+    .fomo-notification {
+      z-index: 900 !important;
+    }
+
+    input.actual-radio-button:checked+.radio-label {
+      background: #fcece2;
+    }
+
+    *::popover-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0);
+      pointer-events: unset !important;
+    }
+
+    *::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+    </style>
+
+    <!-- Website schema for all pages -->
     <script is:inline type="application/ld+json">
-      {
-        "@context": "https://schema.org/",
-        "@type": "WebSite",
-        "name": "Pettable",
-        "description": "ESA Letters",
-        "url": "https://pettable.com",
-        "inLanguage": "en-US"
-      }
+    {
+      "@context": "https://schema.org/",
+      "@type": "WebSite",
+      "name": "Pettable",
+      "description": "ESA Letters",
+      "url": "https://pettable.com",
+      "inLanguage": "en-US"
+    }
     </script>
 
-    <slot name="head" />
+    <script is:inline>
+      /**
+      * Dynamic Title
+      *
+      * Changes the title of the page to :cry: Come Back! when the user blurs the tab.
+      **/
+
+      let originalTitle = document.title;
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          document.title = "😢 Come Back!";
+        } else {
+          document.title = originalTitle;
+        }
+      });
+    </script>
+
+    <!-- GSAP Animation Library -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
     {/* GTM noscript fallback (Stape proxy) */}
@@ -131,123 +191,401 @@ const {
     <script is:inline src="https://cdn.prod.website-files.com/5efb22ae1cebe1d23aa0554c/js/pettable.schunk.f2efb3c5440a81cf.js"></script>
     <script is:inline src="https://cdn.prod.website-files.com/5efb22ae1cebe1d23aa0554c/js/pettable.dddfcd7e.ee558e0c4ba8f897.js"></script>
 
-    {/* Custom Pettable site script — UTM persistence, hostname-aware loader, path-based entry routing */}
+    {/* Custom Pettable site script — shared loader, UTM persistence, and session tracking. */}
     <script is:inline>
-      (() => {
-        const BASE_URLS = {
-          default: 'https://assets.pettable.com/prod/',
-          'pettable.com': 'https://assets.pettable.com/prod/',
-          'pettable.webflow.io': 'https://assets.pettable.com/staging/',
-          'checkout-staging.pettable.com': 'https://assets.pettable.com/staging/',
-          localhost: 'http://localhost:8080/',
-          '127.0.0.1': 'http://127.0.0.1:8080/',
-        };
+    /**
+     * This is deployed into Webflow directly, project settings -> custom scripts -> footer
+     * Keep this file self-contained: Webflow executes it as a classic browser script.
+     */
 
-        const ENTRY_POINTS = {
-          '/get-started': 'quiz-healthie.js',
-          '/getting-your-results': 'getting-your-results.js',
-          '/esa-results': 'esa-results-healthie.js',
-          '/psd-results': 'esa-results-healthie.js',
-          '/results-': 'esa-results-healthie.js',
-          '/results/': 'results.js',
-          '/quiz-results': 'quiz-results.js',
-          '/dog-training/': 'product.js',
-          '/psd-training': 'product.js',
-          '/confirm-your-phone-number': 'phone.js',
-          '/calendar': 'calendar.js',
-          '/esa-checkout': 'esa-checkout-healthie.js',
-          '/psd-checkout': 'esa-checkout-healthie.js',
-          '/checkout': 'esa-checkout-healthie.js',
-          '/processing-payment': 'processing-payment.js',
-          '/thank-you': 'thankyou-healthie.js',
-          '/pettable-perks-thank-you': 'thank-you-ltv.js',
-          '/pettable-perks': 'quiz-ltv.js',
-          '/clean': 'clean.js',
-          '/pet-zodiac-quiz': 'quiz-pet-horoscope.js',
-          '/esa-landlord-toolkit': 'esa-landlord-toolkit.js',
-        };
+    (() => {
+      const SESSION_TRACKED_KEY = 'pettable_session_tracked';
+      const LEAD_ID_KEY = 'pettable_lead_id';
+      const PENDING_SESSION_KEY = 'pettable_pending_session';
+      const INITIAL_POLL_DELAY_MS = 200;
+      const MAX_POLL_DELAY_MS = 5000;
+      const REQUEST_DELAYS_MS = [0, 1000, 5000];
 
-        const STAGING_QUIZ_ID = '423b9bde-eae6-4eab-9de8-8c6b87fd1272';
+      function logAndCaptureError(error, message) {
+        if (message) {
+          console.error(message, error);
+        } else {
+          console.error(error);
+        }
 
-        async function loadScript(script) {
-          let baseURL;
-          if (BASE_URLS[location.hostname] !== undefined) {
-            baseURL = BASE_URLS[location.hostname];
-          } else {
-            baseURL = BASE_URLS.default;
+        const sentry = window.Sentry;
+        if (sentry && typeof sentry.captureException === 'function') {
+          sentry.captureException(error);
+        }
+      }
+
+      function readGACookie(cookieHeader) {
+        const match = cookieHeader.match(/(?:^|;\s*)_ga=([^;]*)/);
+        return match ? match[1] : null;
+      }
+
+      function readPendingContext(storage) {
+        const raw = storage.getItem(PENDING_SESSION_KEY);
+        if (!raw) return null;
+
+        try {
+          return JSON.parse(raw);
+        } catch {
+          storage.removeItem(PENDING_SESSION_KEY);
+          return null;
+        }
+      }
+
+      function getOrCreatePendingContext(environment) {
+        const existing = readPendingContext(environment.storage);
+        if (existing) return existing;
+
+        const context = environment.captureContext();
+        environment.storage.setItem(PENDING_SESSION_KEY, JSON.stringify(context));
+        return context;
+      }
+
+      async function waitForLeadId(environment) {
+        const cached = environment.storage.getItem(LEAD_ID_KEY);
+        if (cached) return cached;
+
+        let leadId = environment.getLeadIdCookie();
+        let pollDelay = INITIAL_POLL_DELAY_MS;
+
+        while (!leadId) {
+          await environment.wait(pollDelay);
+          leadId = environment.storage.getItem(LEAD_ID_KEY) || environment.getLeadIdCookie();
+          pollDelay = Math.min(pollDelay * 2, MAX_POLL_DELAY_MS);
+        }
+
+        environment.storage.setItem(LEAD_ID_KEY, leadId);
+        return leadId;
+      }
+
+      async function postSession(environment, context, leadId) {
+        for (const delayMs of REQUEST_DELAYS_MS) {
+          if (delayMs > 0) {
+            await environment.wait(delayMs);
           }
-          const url = `${baseURL}js/${script}`;
-          await import(url);
-        }
 
-        function checkIf30Min(lastUTMs) {
-          const lastTime = new Date(lastUTMs.created_at || 0).getTime();
-          const now = Date.now();
-          return now - lastTime > 1800000;
-        }
+          try {
+            const response = await environment.fetcher(environment.endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ event_type: 'session', lead_id: leadId, ...context }),
+              keepalive: true,
+            });
 
-        function compareUTMs(lastUTMs, newUTMs) {
-          if (Object.keys(lastUTMs).length === 0) return false;
-          for (const key of Object.keys(lastUTMs)) {
-            if (key !== 'created_at' && lastUTMs[key] !== newUTMs[key]) return false;
+            if (!response.ok) {
+              throw new Error(`Funnel session request failed (${response.status})`);
+            }
+
+            return true;
+          } catch (error) {
+            environment.onError(error);
           }
-          return true;
         }
 
-        function checkSelfRef(referrer) {
-          const home = ['pettable.com','pettable.webflow.io','checkout-staging.pettable.com','checkout.pettable.com','localhost'];
-          return referrer && home.find((host) => referrer.includes(host)) !== undefined;
+        return false;
+      }
+
+      async function trackSession(environment) {
+        if (environment.storage.getItem(SESSION_TRACKED_KEY)) return;
+
+        const context = getOrCreatePendingContext(environment);
+        const leadId = await waitForLeadId(environment);
+        if (!leadId) return;
+
+        const tracked = await postSession(environment, context, leadId);
+        if (!tracked) return;
+
+        environment.storage.setItem(SESSION_TRACKED_KEY, '1');
+        environment.storage.removeItem(PENDING_SESSION_KEY);
+      }
+
+      function createSessionTracker(environment) {
+        let activeTracking = null;
+
+        return {
+          start: () => {
+            if (!activeTracking) {
+              activeTracking = trackSession(environment)
+                .catch((error) => {
+                  environment.onError(error);
+                })
+                .finally(() => {
+                  activeTracking = null;
+                });
+            }
+            return activeTracking;
+          },
+        };
+      }
+
+      // Block GTM on staging environments to prevent test traffic in GA4 production data
+      const STAGING_HOSTS = ['pettable.webflow.io', 'checkout-staging.pettable.com'];
+      const isStaging = STAGING_HOSTS.includes(location.hostname) || location.hostname.includes('staging');
+      if (isStaging) {
+        // Remove the GTM script that was already injected in the <head>
+        document.querySelectorAll('script[src*="load.sst.pettable.com"]').forEach((el) => el.remove());
+        // Replace dataLayer with a stub so push calls are silently ignored
+        window.dataLayer = { push: () => {}, length: 0 };
+      }
+
+      const BASE_URLS = {
+        default: 'https://assets.pettable.com/prod/',
+        'pettable.com': 'https://assets.pettable.com/prod/',
+        'pettable.webflow.io': 'https://assets.pettable.com/staging/',
+        'checkout-staging.pettable.com': 'https://assets.pettable.com/staging/',
+        localhost: 'http://localhost:8080/',
+        '127.0.0.1': 'http://127.0.0.1:8080/',
+      };
+
+      const ENTRY_POINTS = {
+        '/get-started': 'quiz-healthie.js',
+        '/getting-your-results': 'getting-your-results.js',
+        '/esa-results': 'esa-results-healthie.js',
+        '/psd-results': 'esa-results-healthie.js',
+        '/results-': 'esa-results-healthie.js',
+        '/results/': 'results.js',
+        '/quiz-results': 'quiz-results.js',
+        '/dog-training/': 'product.js',
+        '/psd-training': 'product.js',
+        '/confirm-your-phone-number': 'phone.js',
+        '/calendar': 'calendar.js',
+        '/esa-checkout': 'esa-checkout-healthie.js',
+        '/psd-checkout': 'esa-checkout-healthie.js',
+        '/checkout': 'esa-checkout-healthie.js',
+        '/processing-payment': 'processing-payment.js',
+        '/thank-you': 'thankyou-healthie.js',
+        '/pettable-perks-thank-you': 'thank-you-ltv.js',
+        '/pettable-perks': 'quiz-ltv.js',
+        '/clean': 'clean.js',
+        '/pet-zodiac-quiz': 'quiz-pet-horoscope.js',
+        '/esa-landlord-toolkit': 'esa-landlord-toolkit.js',
+      };
+
+      const STAGING_QUIZ_ID = '423b9bde-eae6-4eab-9de8-8c6b87fd1272';
+
+      async function loadScript(script) {
+        let baseURL;
+
+        if (BASE_URLS[location.hostname] !== undefined) {
+          baseURL = BASE_URLS[location.hostname];
+        } else {
+          baseURL = BASE_URLS.default;
         }
 
-        function getUtms() {
-          const UTMs = {};
-          const search = new URLSearchParams(window.location.search);
-          const kws = ['keyword', 'adposition', 'ref', 'campaignid', 'adgroupid', 'targetid', 'matchtype', 'device', 'gclid'];
-          search.forEach((value, key) => {
-            if (key.startsWith('utm_') || kws.indexOf(key) > -1) UTMs[key] = value;
-          });
-          return UTMs;
+        const url = `${baseURL}js/${script}`;
+        await import(url);
+      }
+
+      function checkIf30Min(lastUTMs) {
+        const lastTime = new Date(lastUTMs.created_at || 0).getTime();
+        const now = Date.now();
+        return now - lastTime > 1800000;
+      }
+
+      function compareUTMs(lastUTMs, newUTMs) {
+        if (Object.keys(lastUTMs).length === 0) {
+          return false;
         }
+        for (const key of Object.keys(lastUTMs)) {
+          if (key !== 'created_at' && lastUTMs[key] !== newUTMs[key]) {
+            return false;
+          }
+        }
+        return true;
+      }
 
-        const basePath = Object.keys(ENTRY_POINTS).find((url) => window.location.pathname.startsWith(url));
-        if (basePath) loadScript(ENTRY_POINTS[basePath]);
+      const API_URLS = {
+        localhost: 'http://localhost:3000/dev/api',
+        '127.0.0.1': 'https://staging.api.pettable.com/api',
+      };
 
+      function getFunnelApiUrl() {
+        const { hostname } = location;
+        if (API_URLS[hostname]) return API_URLS[hostname];
+        if (hostname.includes('staging') || hostname.includes('webflow.io') || hostname.includes('checkout-staging')) {
+          return 'https://staging.api.pettable.com/api';
+        }
+        return 'https://api.pettable.com/api';
+      }
+
+      function checkSelfRef(referrer) {
+        const home = [
+          'pettable.com',
+          'pettable.webflow.io',
+          'checkout-staging.pettable.com',
+          'checkout.pettable.com',
+          'localhost',
+        ];
+        return referrer && home.find((host) => referrer.includes(host)) !== undefined;
+      }
+
+      function getUtms() {
+        const UTMs = {};
         const search = new URLSearchParams(window.location.search);
-        let quiz = document.querySelector('qubl-instance');
-        if (quiz) {
-          if (search.has('test')) {
-            quiz.outerHTML = quiz.outerHTML.replace('qubl-instance', 'qubl-preview');
-            quiz = document.querySelector('qubl-preview');
+        const kws = [
+          'keyword',
+          'adposition',
+          'ref',
+          'campaignid',
+          'adgroupid',
+          'targetid',
+          'matchtype',
+          'device',
+          'gclid',
+          'fbclid',
+          'customerid',
+          'creative',
+        ];
+        search.forEach((value, key) => {
+          if (key.startsWith('utm_') || kws.indexOf(key) > -1) {
+            UTMs[key] = value;
           }
-          let quizId = quiz.getAttribute('quiz-id');
-          if (search.has('quiz')) {
-            if (search.get('quiz') === 'test') quizId = STAGING_QUIZ_ID;
-            else quizId = search.get('quiz');
+        });
+        return UTMs;
+      }
+
+      const basePath = Object.keys(ENTRY_POINTS).find((url) => window.location.pathname.startsWith(url));
+      if (basePath) {
+        loadScript(ENTRY_POINTS[basePath]);
+      }
+
+      const search = new URLSearchParams(window.location.search);
+      let quiz = document.querySelector('qubl-instance');
+      if (quiz) {
+        if (search.has('test')) {
+          quiz.outerHTML = quiz.outerHTML.replace('qubl-instance', 'qubl-preview');
+          quiz = document.querySelector('qubl-preview');
+        }
+        let quizId = quiz.getAttribute('quiz-id');
+        if (search.has('quiz')) {
+          if (search.get('quiz') === 'test') {
+            quizId = STAGING_QUIZ_ID;
+          } else {
+            quizId = search.get('quiz');
           }
-          quiz.setAttribute('quiz-id', quizId);
+        }
+        quiz.setAttribute('quiz-id', quizId);
+      }
+
+      const referrer = document.referrer || '';
+      const selfReferrer = checkSelfRef(referrer);
+      const lastUTMs = JSON.parse(window.localStorage.getItem('esa_utm_last') || '{}');
+      const UTMs = getUtms();
+      if (!selfReferrer) {
+        UTMs.path = window.location.pathname;
+        UTMs.created_at = new Date().toISOString();
+        UTMs.referrer = referrer;
+        // first ever utm
+        if (!window.localStorage.getItem('esa_utm')) {
+          window.localStorage.setItem('esa_utm', JSON.stringify(UTMs));
+        }
+        if (!compareUTMs(lastUTMs, UTMs) || checkIf30Min(lastUTMs)) {
+          window.localStorage.setItem('esa_utm_last', JSON.stringify(UTMs));
+          const journey = JSON.parse(window.localStorage.getItem('esa_journey') || '[]');
+          journey.push(UTMs);
+          window.localStorage.setItem('esa_journey', JSON.stringify(journey));
+        }
+      }
+
+      const PURCHASERS_SEGMENT_MEMBER_COUNT_PATH = '/klaviyo/purchasers-segment/member-count';
+      const PURCHASERS_SEGMENT_COUNT_CACHE_KEY = 'pettable_purchasers_segment_count';
+      const PURCHASERS_SEGMENT_COUNT_CACHE_TTL_MS = 5 * 60 * 1000;
+
+      function isHomePage() {
+        const { pathname } = window.location;
+        const isHome = pathname === '/' || pathname === '';
+        return isHome;
+      }
+
+      function getCachedPurchasersSegmentMemberCount() {
+        try {
+          const raw = sessionStorage.getItem(PURCHASERS_SEGMENT_COUNT_CACHE_KEY);
+          if (!raw) {
+            return null;
+          }
+          const { count, cachedAt } = JSON.parse(raw);
+          if (typeof count !== 'number' || Date.now() - cachedAt >= PURCHASERS_SEGMENT_COUNT_CACHE_TTL_MS) {
+            return null;
+          }
+          return count;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function setCachedPurchasersSegmentMemberCount(count) {
+        sessionStorage.setItem(PURCHASERS_SEGMENT_COUNT_CACHE_KEY, JSON.stringify({ count, cachedAt: Date.now() }));
+      }
+
+      async function fetchPurchasersSegmentMemberCount() {
+        const cached = getCachedPurchasersSegmentMemberCount();
+        if (cached !== null) return cached;
+
+        const response = await fetch(`${getFunnelApiUrl()}${PURCHASERS_SEGMENT_MEMBER_COUNT_PATH}`);
+        if (!response.ok) {
+          throw new Error(`Purchasers segment member count request failed (${response.status})`);
         }
 
-        const referrer = document.referrer || '';
-        const selfReferrer = checkSelfRef(referrer);
-        const lastUTMs = JSON.parse(window.localStorage.getItem('esa_utm_last') || '{}');
-        const UTMs = getUtms();
-        if (!selfReferrer) {
-          UTMs.path = window.location.pathname;
-          UTMs.created_at = new Date().toISOString();
-          UTMs.referrer = referrer;
-          if (!window.localStorage.getItem('esa_utm')) {
-            window.localStorage.setItem('esa_utm', JSON.stringify(UTMs));
-          }
-          if (!compareUTMs(lastUTMs, UTMs) || checkIf30Min(lastUTMs)) {
-            window.localStorage.setItem('esa_utm_last', JSON.stringify(UTMs));
-            const journey = JSON.parse(window.localStorage.getItem('esa_journey') || '[]');
-            journey.push(UTMs);
-            window.localStorage.setItem('esa_journey', JSON.stringify(journey));
-          }
+        const { count: memberCount } = await response.json();
+        if (typeof memberCount !== 'number') {
+          throw new Error('Purchasers segment member count response missing numeric count');
         }
 
-        window.loadScript = loadScript;
-      })();
+        setCachedPurchasersSegmentMemberCount(memberCount);
+        return memberCount;
+      }
+
+      async function loadPurchasersSegmentCountOnHome() {
+        if (!isHomePage()) return;
+
+        try {
+          const purchasersSegmentMemberCount = await fetchPurchasersSegmentMemberCount();
+          window.pettablePurchasersSegmentMemberCount = purchasersSegmentMemberCount;
+          console.log('[Klaviyo] Purchasers segment member count:', purchasersSegmentMemberCount);
+        } catch (error) {
+          logAndCaptureError(error, 'esa-script klaviyo purchasers segment count failed');
+        }
+      }
+
+      window.loadScript = loadScript;
+
+      const sessionTracker = createSessionTracker({
+        storage: window.sessionStorage,
+        endpoint: `${getFunnelApiUrl()}/funnel/event`,
+        captureContext: () => {
+          const utms = JSON.parse(localStorage.getItem('esa_utm') || '{}');
+          let platform = null;
+          if (utms.gclid) platform = 'google';
+          else if (utms.fbclid) platform = 'facebook';
+
+          return {
+            landed_at: new Date().toISOString(),
+            landing_page_url: window.location.href,
+            utm_source: utms.utm_source || null,
+            utm_medium: utms.utm_medium || null,
+            utm_campaign: utms.utm_campaign || null,
+            utm_content: utms.utm_content || null,
+            utm_term: utms.utm_term || null,
+            platform,
+            account_id: utms.customerid || null,
+            campaign_id: utms.campaignid || null,
+            ad_group_id: utms.adgroupid || null,
+            ad_id: utms.creative || null,
+          };
+        },
+        getLeadIdCookie: () => readGACookie(document.cookie),
+        fetcher: window.fetch.bind(window),
+        wait: (delayMs) => new Promise((resolve) => setTimeout(resolve, delayMs)),
+        onError: (error) => logAndCaptureError(error, 'esa-script funnel/session track failed'),
+      });
+
+      sessionTracker.start();
+      loadPurchasersSegmentCountOnHome();
+    })();
     </script>
   </body>
 </html>
